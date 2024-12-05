@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Side Navbar with Icons</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Custom CSS to make the sidebar blue and text white */
+    .sidebar {
+      background-color: #007bff; /* Blue color */
+      color: white;
+      height: 100vh;
+    }
+    .green-text {
+  color: rgb(62, 173, 62);
+  font-weight: bold; /* Optional: Makes the green 8 bold */
+}
+
+    .sidebar a {
+      color: white;
+    }
+
+    .sidebar a.active {
+      background-color: #0056b3; /* Darker blue for active link */
+    }
+
+    .sidebar a:hover {
+      background-color: #0056b3;
+    }
+
+    .main-content {
+      height: 100vh; /* Full height of the screen */
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content-section {
+      flex: 1; /* Equal height for each section */
+      padding: 20px;
+      border: 1px solid #ccc;
+      background-color: white; /* Light background color for contrast */
+    }
+
+    .grey-square {
+      background-color: white; /* Set the background to white */
+      height: 100%; /* Same height as the rectangle */
+      width:30%; /* Distribute the width equally between 3 squares */
+      color: black; /* Set text and icon color to black */
+      display: flex;
+      flex-direction: column; /* Stack the inner divs vertically */
+      align-items: center;
+      justify-content: space-between;
+      border: 2px solid #ccc; /* Add border */
+      border-radius: 8px; /* Rounded corners */
+      margin-right: 18px; 
+      margin-left: 9px;/* Spacing between squares */
+  padding: 10px;
+    }
+
+    .grey-rectangle {
+      background-color: white; /* Set the background to white */
+      height: 100%; /* Full height */
+      color: black; /* Set text and icon color to black */
+      display: flex;
+      justify-content: space-between; /* Space between text and image */
+      align-items: center;
+      padding: 20px;
+      border: 2px solid #ccc; /* Add border */
+      border-radius: 8px; /* Rounded corners */
+      position: relative;
+      
+    }
+
+    .text-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* Center the text vertically */
+      padding-left: 20px; /* Space between text and the image */
+      width: 50%; /* Ensure it takes up half the space */
+    }
+
+    .row-cols-1 > .col {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-img {
+      width: 150px; /* Set image size */
+      height: 150px;
+      border-radius: 50%; /* Circular image */
+      object-fit: cover; /* Ensure the image covers the area */
+      background-color: white; /* Placeholder background color */
+    }
+
+    .inner-div {
+      background-color: white; /* Set background to white */
+      color: black; /* Set text color to black */
+      width: 100%;
+      padding: 10px;
+      text-align: center;
+      border-radius: 4px; /* Optional: add rounded corners */
+    }
+
+    .inner-div i {
+      color: black; /* Set icon color to black */
+    }
+    .edit-button {
+ position: absolute;
+  top: 20px;
+  right:20px;
+  background-color: rgb(38, 157, 38);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+    /* Inside .grey-square, remove padding and margin for inner divs */
+    /* Ensure inner-divs behave as block elements */
+    .grey-square .inner-div {
+      background-color: white;
+      color: black;
+      width: 100%;
+      padding: 10px;
+      text-align: left; /* Align text to the left */
+      border-radius: 4px;
+      display: block; /* Make divs behave like block elements */
+    }
+
+    .grey-square .inner-div i {
+      color: black; /* Set icon color */
+      margin-right: 10px; /* Space between icon and text */
+    }
+
+    /* Ensure content inside inner divs is left-aligned */
+    .grey-square .inner-div {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start; /* Align content to the left */
+    }
+
+    /* New Styling for the second section */
+    .second-section {
+    display: flex;
+    flex-grow: 1; /* Ensure the section takes up available space */
+  }
+
+  .rectangle {
+    width: 100%; /* Take full width */
+  height: 90%; /* Full height within container */
+  background-color: rgb(255, 255, 255);
+  border: 1px solid grey;  /* Grey border */
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column; /* Arrange children vertically */
+  gap: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .square {
+    width: 67%; /* Let each square stretch within its column */
+    height: 90%; /* Full height */
+    background-color:white;
+    margin: 25px 0; /* Vertical spacing */
+    border: 1px solid grey;  /* Grey border */
+  border-radius: 10px; 
+  }
+  .square .text {
+    padding-left: 10px;  /* Add left padding */
+    padding-top: 5px;   /* Add top padding */
+    margin-bottom: 13px;
+    font-size: larger; /* Add vertical spacing between text elements */
+}
+
+
+  .col-4 {
+    display: flex;
+    flex-grow: 1; /* Ensure squares fill equal space */
+    justify-content: center;
+    align-items: center;
+    padding: 8px; /* Add spacing between squares */
+  }
+
+  .row {
+    height: 50%; /* Ensure two rows split equally within the column */
+  }
+
+  .col-md-6 {
+    height: 100%; /* Both rectangle and squares sections take equal height */
+    padding: 0;
+  }
+  .top,
+    .bottom {
+      display: flex;
+      padding: 0;  /* Remove padding */
+      margin: 0; 
+  
+    }
+
+    .bottom{color: blue;}
+
+    .top div,
+    .bottom div {
+      width: 100%;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+ 
+     
+    }
+
+    .rectangle  .top2, .top3, .top4 {
+  flex: 1; /* Make all top divs take equal space */
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  background-color: #eae4e4;
+  width: 100%;
+  position: relative;
+}
+.icons {
+  position: absolute;
+  top: 10px; /* Distance from the top */
+  right: 10px; /* Distance from the right */
+  display: flex;
+  gap: 10px; /* Space between the icons */
+}
+
+.icon1, .icon2 {
+  font-size: 20px; /* Adjust icon size */
+}
+.custom-btn {
+      background-color: white;
+      color: grey;
+      border-color: grey;
+    }
+    .custom-btn:hover {
+      background-color: #f8f9fa;
+      color: grey;
+    }
+    .custom-btn:focus {
+      box-shadow: none;
+    }
+  
+/* Remove padding and margin for top and bottom divs in the rectangle */
+
+
+
+  </style>
+</head>
+<body>
+  <div class="d-flex">
+    <!-- Sidebar -->
+    <div class="wrapper">
+        <aside id="sidebar">
+            <div class="d-flex">
+                <button class="toggle-btn" type="button">
+                    <i class="lni lni-grid-alt"></i>
+                </button>
+                <div class="sidebar-logo">
+                    <a href="#">Recruitment Home</a>
+                </div>
+            </div>
+            <ul class="sidebar-nav">
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="lni lni-user"></i>
+                        <span>All Applications</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="lni lni-agenda"></i>
+                        <span>Search Applications</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="bi bi-hand-thumbs-up"></i> <!-- Alternative to handshake -->
+
+
+                        <span>All Applications</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="lni lni-user"></i>
+                        <span>View Active posts</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="bi bi-list-task"></i>
+                        <span>Create a new post</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="bi bi-laptop"></i>
+                        <span>Department Master</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                        data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                        <i class="lni lni-protection"></i>
+                        <span>View Active Posts</span>
+                    </a>
+                    <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">Create a new post</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">Department Master</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                        data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
+                        <i class="lni lni-layout"></i>
+                        <span>Multi Level</span>
+                    </a>
+                    <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#multi-two" aria-expanded="false" aria-controls="multi-two">
+                                Two Links
+                            </a>
+                            <ul id="multi-two" class="sidebar-dropdown list-unstyled collapse">
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">Link 1</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">Link 2</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="lni lni-popup"></i>
+                        <span>Notification</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="lni lni-cog"></i>
+                        <span>Setting</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="#" class="sidebar-link">
+                    <i class="lni lni-exit"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+       
+    </div>
+
+    <!-- Main Content -->
+    <div class="d-flex flex-column flex-grow-1">
+      <div class="content-section">
+        <div class="row h-100">
+          <!-- Left Rectangle -->
+          <div class="col-md-5 grey-rectangle">
+            <!-- Placeholder for Image on the left side of the rectangle -->
+            <button class="edit-button">Edit<i class="bi bi-pencil-square"></i></button>
+
+            <div class="profile-img"><img src="profile2.png" alt="" srcset=""></div> <!-- Placeholder image div -->
+
+            <!-- Text on the right side of the left rectangle -->
+            <div class="text-container">
+              <p>Name: John Doe</p>
+              <p>EmployeeID: 12345</p>
+              <p>Designation: Software Engineer</p>
+              <p>Department: Development</p>
+            </div>
+          </div>
+
+          <!-- Three Smaller Squares -->
+          <div class="col-md-7 d-flex p-0">
+            <!-- First square -->
+            <div class="grey-square">
+              <div class="inner-div"><i class="bi bi-box-arrow-left"></i> In Today</div>
+              <div class="inner-div"><b>10:00 AM</b></div>
+              <div class="inner-div">Out Today<br><b>-- : --</b></div>
+            </div>
+
+            <!-- Second square -->
+            <div class="grey-square">
+              <div class="inner-div"><i class="bi bi-calendar2-event"></i> Hours Today</div>
+              <div class="inner-div"><b><span class="green-text">8</span>/8 hrs</b></div>
+              <div class="inner-div">Average Hours Weekly<br><b><span class="green-text">8</span>/8 hrs</b></div>
+            </div>
+
+            <!-- Third square -->
+            <div class="grey-square">
+              <div class="inner-div"><i class="bi bi-calendar"></i> Casual Leave Sick Leave</div>
+              <div class="inner-div"><b><span class="green-text">6</span>/6 days <span class="green-text">6</span>/6 days</b></div>
+              <div class="inner-div">Earned Leave<br><b><span class="green-text">6</span>/6 days</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Second Section with Centered Content -->
+     <!-- Second Section with Centered Content -->
+<div class="content-section second-section">
+    <div class="container-fluid h-100">
+      <div class="row h-100">
+        <!-- Left Column: Rectangle -->
+      
+        <div class="col-md-6">
+            <h1> Announcements</h1>
+           
+          <div class="rectangle">
+         
+          <div class="top">
+          
+            <div class="d-flex justify-content-end"> <button class="btn btn-sm custom-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Today 13th Sep, 2021
+              </button></div>
+          </div>
+          <div class="top2">
+            <div ><b>Outing schedule for every department </b><div class="icons">
+                <i class="bi bi-pin-angle" style="color: blue;"></i>
+                <i class="fa fa-ellipsis-h" style="color: grey;"></i>
+
+              </div><p>5 minutes ago</p> </div>
+          </div>
+          <div class="top3">
+            <div><b>Meeting HR Department</b><p>Yesterday 12:30 PM</p>  <div class="icons">
+                <i class="bi bi-pin-angle" style="color: grey;"></i>
+
+                <i class="fa fa-ellipsis-h" style="color: grey;"></i>
+
+              </div></div>
+          </div>
+          <div class="top4">
+            <div><b>IT Department needs two more talent or UI/UX Designer</b><p>Yesterday 9:35 AM</p>  <div class="icons">
+                <i class="bi bi-pin-angle" style="color: grey;"></i>
+                <i class="fa fa-ellipsis-h" style="color: grey;"></i>
+
+              </div></div>
+          </div>
+          <div class="bottom">
+            <div><b>See All Announcements</b></div>
+         
+          </div>
+        </div>
+    </div>
+  
+        <!-- Right Column: Six Squares -->
+         
+        <div class="col-md-6">
+          
+          
+          <div class="row">
+            <h1> Employee Attendance</h1>
+          
+            <div class="col-4">
+           
+              <div class="square">
+
+                <div class="text"><i class="fas fa-briefcase" style="color: rgb(19, 88, 134);"></i>
+                </div>
+                <div class="text">Total WorkForce<p><b>150</b></p></div>
+              
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="square">
+                <div class="text"><i class="fas fa-chair" style="color: rgb(19, 88, 134);"></i>
+                </div>
+                <div class="text">Present<p><b>125</b></p></div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="square"> <div class="text"><i class="fas fa-exclamation"style="color: rgb(19, 88, 134);"></i>
+              </div>
+              <div class="text">Absent<p><b>15</b></p></div></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <div class="square"> <div class="text"><i class="fas fa-clock" style="color:rgb(19, 88, 134);"></i>
+              </div>
+              <div class="text">Late Arrivals<p><b>5</b></p></div></div>
+            </div>
+            <div class="col-4">
+              <div class="square"> <div class="text"><i class="fa-light fa-umbrella-beach" style="color: rgb(19, 88, 134);"></i></i>
+              </div>
+              <div class="text">On Leave<p><b>5</b></p></div></div>
+            </div>
+            <div class="col-4">
+              <div class="square"> <div class="text"><i class="fas fa-home"style="color: rgb(19, 88, 134);"></i>
+              </div>
+              <div class="text">WFH<p><b>5</b></p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+<!-- Third Section -->
+<div class="content-section third-section">
+    <div class="row h-100">
+      <div class="col-12">
+        <!-- Row 1 -->
+        <!-- First Row of Third Section -->
+<div class="row h-25 align-items-center">
+    <div class="col-12 d-flex justify-content-between">
+      <!-- Search input and filter button -->
+      <div class="d-flex">
+        <input type="text" class="form-control me-2" placeholder="Search by name, role, department" style="width: 300px;">
+        <button class="btn btn-outline-secondary">Filter</button>
+      </div>
+  
+      <!-- Spacer -->
+      <div class="spacer" style="flex: 1;"></div>
+  
+      <!-- Three buttons aligned next to each other -->
+      <div class="d-flex gap-3">
+        <!-- Button 1 -->
+        <button class="btn btn-outline-secondary " >
+            <i class="fa fa-building me-2"></i> All Departments
+        </button>
+
+        <!-- Button 2 -->
+        <button class="btn btn-outline-secondary ">
+          13 Jan, 2024<i class="bi bi-calendar-date"></i>
+        </button>
+
+        <!-- Button 3 -->
+        <button class="btn btn-outline-secondary ">
+            <i class="bi bi-cloud-upload"></i> Export CSV
+        </button>
+    </div>
+    </div>
+  </div>
+  
+        <!-- Row 2 with space between texts -->
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+              <thead class="bg-secondary text-white">
+                <tr>
+                  <th>Date</th>
+                  <th>Employee</th>
+                  <th>Role</th>
+                  <th>Employment Type</th>
+                  <th>Status</th>
+                  <th>Check In</th>
+                  <th>Check Out</th>
+                  <th>Over Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>13/01</td>
+                  <td>Aisha Doe</td>
+                  <td>HR Manager</td>
+                  <td><button class="btn btn-outline-primary btn-sm">Full Time</button></td>
+                  <td><button class="btn btn-outline-success btn-sm">Present</button></td>
+                  <td>9:00 AM</td>
+                  <td>4:00 PM</td>
+                  <td>0h</td>
+                </tr>
+                <tr>
+                  <td>13/01</td>
+                  <td >Chukwuemeka</td>
+                  <td>HR Manager</td>
+                  <td><button class="btn btn-outline-primary btn-sm">Full Time</button></td>
+                  <td><button class="btn btn-outline-danger btn-sm">Absent</button></td>
+                  <td>--:--</td>
+                  <td>--:--</td>
+                  <td>0h</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+      </div>
+    </div>
+  </div>
+  
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+  crossorigin="anonymous"></script>
+<script src="script.js"></script>
+</body>
+</html>
